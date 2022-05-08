@@ -57,7 +57,7 @@ exports.play = async (options = {}) => {
     if(!data.dispatcher) {
 
         playSong(data, interaction);
-        if(show==="no")await interaction.channel.send(`これ再生するよ ${song} `);
+        if(show==true)await interaction.channel.send(`これ再生するよ ${song} `);
 
     } else {
 
