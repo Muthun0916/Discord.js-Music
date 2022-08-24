@@ -46,10 +46,10 @@ exports.play = async (options = {}) => {
   const data = activeSongs.get(channel.guild.id) || {};
 
   if (!channel.guild.me.voice.channel) {
-    data.connection =  connectToChannel(channel);
+    data.connection =  await connectToChannel(channel);
   };
   if (!data.connection) {
-    data.connection =  connectToChannel(channel);
+    data.connection =  await connectToChannel(channel);
   };
 
   if (!data.queue) data.queue = [];
