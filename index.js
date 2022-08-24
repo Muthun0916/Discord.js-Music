@@ -30,8 +30,10 @@ exports.play = async (options = {}) => {
 
   if (!ytdl.validateURL(song)) {
     interaction.reply(`${song}は処理できません。`);
+    console.log("URL IS INAVAILABLE!!")
   } else {
     isValiableURL = true;
+    console.log("URL IS AVAILABLE!!")
   }
   const data = activeSongs.get(channel.guild.id) || {};
 
