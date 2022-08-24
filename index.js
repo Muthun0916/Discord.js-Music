@@ -29,12 +29,19 @@ exports.play = async (options = {}) => {
   if (!interaction) throw new Error(`INVALID_INTERACTION: There is no valid CommandInteraction provided.`)
 
   if (!ytdl.validateURL(song)) {
-    await interaction.reply(`${song}は処理できません。`);
+    await interaction.reply({
+      content:`${song}は処理できません。`;,
+      ephemeral: true,
+    })
     console.log("URL IS INAVAILABLE!!")
     return;
   } else {
     isValiableURL = true;
     console.log("URL IS AVAILABLE!!")
+    await interaction.reply({
+      content: `これを再生するよ ${interaction.options.getString("youtube_url")}`,
+      ephemeral: true,
+    })
   }
   const data = activeSongs.get(channel.guild.id) || {};
 
@@ -78,11 +85,9 @@ exports.play = async (options = {}) => {
   });
 
   if (!data.dispatcher && isValiableURL) {
-
     playSong(data, interaction);
     console.log(show)
-    //if (show) interaction.channel.send(`これ再生するよ ${song} `);
-
+    if (show) interaction.channel.send(`これ再生するよ ${song} `);
   } else {
 
     if (queueSongInfo.extra.type === 'playlist') {
