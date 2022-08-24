@@ -31,7 +31,7 @@ exports.play = async (options = {}) => {
 
     let queueSongInfo;
 
-        const ytdlSongInfo;
+        let ytdlSongInfo;
         try{
           ytdlSongInfo = await ytdl.getInfo(song);
         }catch(e){
