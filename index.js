@@ -58,9 +58,7 @@ exports.play = async (options = {}) => {
 
   data.guildId = channel.guild.id;
 
-  const ytdlSongInfo = ytdl.getInfo(song);
-
-
+  const ytdlSongInfo = await ytdl.getInfo(song);
   console.log(ytdlSongInfo["videoDetails"]);
 
   const queueSongInfo = {
