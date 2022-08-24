@@ -12,6 +12,7 @@ const yts = require('yt-search');
 const eventEmitter = require('events');
 const activeSongs = new Map();
 const event = new eventEmitter();
+let isValiableURL = false;
 
 module.exports.event = event;
 
@@ -27,7 +28,11 @@ exports.play = async (options = {}) => {
   if (!song || typeof song !== 'string') throw new Error(`INVALID_MUSIC_URL: There is no valid Music URL provided.`);
   if (!interaction) throw new Error(`INVALID_INTERACTION: There is no valid CommandInteraction provided.`)
 
-  if (!ytdl.validateURL(song)) return interaction.reply(`${song}は処理できません。`);
+  if (!ytdl.validateURL(song)) {
+    interaction.reply(`${song}は処理できません。`);
+  } else {
+    isValiableURL = true;
+  }
   const data = activeSongs.get(channel.guild.id) || {};
 
   if (!channel.guild.me.voice.channel) {
@@ -69,7 +74,7 @@ exports.play = async (options = {}) => {
     channel: interaction.channel
   });
 
-  if (!data.dispatcher) {
+  if (!data.dispatcher && isValiableURL) {
 
     playSong(data, interaction);
     console.log(show)
