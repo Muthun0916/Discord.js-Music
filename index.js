@@ -29,7 +29,7 @@ exports.play = async (options = {}) => {
   if (!interaction) throw new Error(`INVALID_INTERACTION: There is no valid CommandInteraction provided.`)
 
   if (!ytdl.validateURL(song)) {
-    interaction.reply(`${song}は処理できません。`);
+    await interaction.reply(`${song}は処理できません。`);
     console.log("URL IS INAVAILABLE!!")
     return;
   } else {
