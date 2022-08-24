@@ -31,7 +31,7 @@ exports.play = async (options = {}) => {
 
     let queueSongInfo;
 
-        if (!ytdl.validateURL(song)) return
+        if (!ytdl.validateURL(song)) return console.log("NG URL")
         const ytdlSongInfo = await ytdl.getInfo(song);
 
 
