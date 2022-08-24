@@ -31,53 +31,48 @@ exports.play = async (options = {}) => {
 
     let queueSongInfo;
 
-        let ytdlSongInfo;
-        try{
-          ytdlSongInfo = await ytdl.getInfo(song);
-          console.log(ytdlSongInfo["videoDetails"]);
+        if (!ytdl.validateURL(song)) return interaction.reply(`${song}は処理できません。`);
+        const ytdlSongInfo = await ytdl.getInfo(song);
 
-          queueSongInfo = {
-              title: ytdlSongInfo["videoDetails"]["title"],
-              author: ytdlSongInfo["videoDetails"]["author"],
-              duration: ytdlSongInfo["videoDetails"]["lengthSeconds"],
-              url: song,
-              thumbnail: ytdlSongInfo["videoDetails"]["thumbnails"].slice(-1)[0]["url"],
-              extra: {
-                  type: 'video',
-                  playlist: null
-              }
-          };
 
-          await data.queue.push({
-              info: queueSongInfo,
-              requester: interaction.user,
-              url: song,
-              channel: interaction.channel
-          });
+        console.log(ytdlSongInfo["videoDetails"]);
 
-      if(!data.dispatcher) {
+        queueSongInfo = {
+            title: ytdlSongInfo["videoDetails"]["title"],
+            author: ytdlSongInfo["videoDetails"]["author"],
+            duration: ytdlSongInfo["videoDetails"]["lengthSeconds"],
+            url: song,
+            thumbnail: ytdlSongInfo["videoDetails"]["thumbnails"].slice(-1)[0]["url"],
+            extra: {
+                type: 'video',
+                playlist: null
+            }
+        };
 
-          playSong(data, interaction);
-          console.log(show)
-          if(show)await interaction.channel.send(`これ再生するよ ${song} `);
+        await data.queue.push({
+            info: queueSongInfo,
+            requester: interaction.user,
+            url: song,
+            channel: interaction.channel
+        });
 
-      } else {
+    if(!data.dispatcher) {
 
-          if(queueSongInfo.extra.type === 'playlist') {
-              event.emit('addList', interaction.channel, queueSongInfo.extra.playlist, interaction.user);
-          } else {
-              event.emit('addSong', interaction.channel, queueSongInfo, interaction.user);
-          }
+        playSong(data, interaction);
+        console.log(show)
+        if(show)await interaction.channel.send(`これ再生するよ ${song} `);
 
-      };
+    } else {
 
-      activeSongs.set(channel.guild.id, data);
-
-        }catch(e){
-          return;
+        if(queueSongInfo.extra.type === 'playlist') {
+            event.emit('addList', interaction.channel, queueSongInfo.extra.playlist, interaction.user);
+        } else {
+            event.emit('addSong', interaction.channel, queueSongInfo, interaction.user);
         }
 
+    };
 
+    activeSongs.set(channel.guild.id, data);
 
 };
 
