@@ -30,7 +30,7 @@ exports.play = async (options = {}) => {
 
   if (!ytdl.validateURL(song)) {
     await interaction.reply({
-      content:`${song}は処理できません。`;,
+      content:`${song}は処理できません。`,
       ephemeral: true,
     })
     console.log("URL IS INAVAILABLE!!")
