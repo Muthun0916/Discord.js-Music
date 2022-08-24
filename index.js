@@ -27,7 +27,7 @@ exports.play = async (options = {}) => {
   if (!song || typeof song !== 'string') throw new Error(`INVALID_MUSIC_URL: There is no valid Music URL provided.`);
   if (!interaction) throw new Error(`INVALID_INTERACTION: There is no valid CommandInteraction provided.`)
 
-  if (!ytdl.validateURL(song)) return console.log("NG URL")
+  if (!ytdl.validateURL(song)) return interaction.reply(`${song}は処理できません。`);
   const data = activeSongs.get(channel.guild.id) || {};
 
   if (!channel.guild.me.voice.channel) {
