@@ -81,7 +81,7 @@ exports.play = async (options = {}) => {
 
     playSong(data, interaction);
     console.log(show)
-    if (show) interaction.channel.send(`これ再生するよ ${song} `);
+    //if (show) interaction.channel.send(`これ再生するよ ${song} `);
 
   } else {
 
