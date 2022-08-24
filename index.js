@@ -31,8 +31,14 @@ exports.play = async (options = {}) => {
 
     let queueSongInfo;
 
+        const ytdlSongInfo;
+        try{
+          ytdlSongInfo = await ytdl.getInfo(song);
+        }catch(e){
+          interaction.reply("指定のURLの音源の取得に失敗しました。");
+          return;
+        }
 
-        const ytdlSongInfo = await ytdl.getInfo(song);
         console.log(ytdlSongInfo["videoDetails"]);
 
         queueSongInfo = {
