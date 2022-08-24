@@ -39,10 +39,10 @@ exports.play = async (options = {}) => {
   const data = activeSongs.get(channel.guild.id) || {};
 
   if (!channel.guild.me.voice.channel) {
-    data.connection = await connectToChannel(channel);
+    data.connection =  connectToChannel(channel);
   };
   if (!data.connection) {
-    data.connection = await connectToChannel(channel);
+    data.connection =  connectToChannel(channel);
   };
 
   if (!data.queue) data.queue = [];
@@ -81,7 +81,7 @@ exports.play = async (options = {}) => {
 
     playSong(data, interaction);
     console.log(show)
-    if (show) await interaction.channel.send(`これ再生するよ ${song} `);
+    if (show) interaction.channel.send(`これ再生するよ ${song} `);
 
   } else {
 
