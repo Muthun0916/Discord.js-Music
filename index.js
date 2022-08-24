@@ -53,7 +53,7 @@ exports.play = async (options = {}) => {
 
   let queueSongInfo;
 
-  const ytdlSongInfo = await ytdl.getInfo(song);
+  const ytdlSongInfo = ytdl.getInfo(song);
 
 
   console.log(ytdlSongInfo["videoDetails"]);
