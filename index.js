@@ -31,7 +31,7 @@ exports.play = async (options = {}) => {
 
     let queueSongInfo;
 
-        if (!ytdl.validateURL(song)) return interaction.reply(`${song}は処理できません。`);
+        if (!ytdl.validateURL(song)) return
         const ytdlSongInfo = await ytdl.getInfo(song);
 
 
